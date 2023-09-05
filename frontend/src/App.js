@@ -16,7 +16,24 @@ class App extends React.Component {
       this.fetchTasks = this.fetchTasks.bind(this)
       this.handleChange = this.handleChange.bind(this)
       this.handleSubmit = this.handleSubmit.bind(this)
+      this.getCookie = this.getCookie.bind(this)
   };
+
+  getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+      const cookies = document.cookie.split(';');
+      for (let i = 0; i < cookies.length; i++) {
+        const cookie = cookies[i].trim();
+        // Does this cookie string begin with the name we want?
+        if (cookie.substring(0, name.length + 1) === (name + '=')) {
+          cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+          break;
+        }
+      }
+    }
+    return cookieValue;
+  }
 
   componentWillMount(){
     this.fetchTasks()
@@ -54,11 +71,14 @@ class App extends React.Component {
     e.preventDefault()
     console.log('ITEM:', this.state.activeItem)
 
+    var csrftoken = this.getCookie('csrftoken')
+
     var url = 'http://127.0.0.1:8000/api/task-create/'
     fetch(url, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'X-CSRFToken':csrftoken,
       },
       body: JSON.stringify(this.state.activeItem)
     }).then((response) => {
@@ -85,7 +105,7 @@ class App extends React.Component {
             <form onSubmit={this.handleSubmit} id="form">
               <div className='flex-wrapper'>
                 <div style={{flex: 6}}>
-                  <input onChange={this.handleChange} className='form-control' id='title' type='text' name='title' placeholder='Add task..'/>
+                  <input onChange={this.handleChange} className='form-control' id='title' value={this.state.activeItem.title} type='text' name='title' placeholder='Add task..'/>
                 </div>
 
                 <div style={{flex: 1}}>
