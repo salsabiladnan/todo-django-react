@@ -29,3 +29,10 @@ h1, h2, h3, h4, h5, p, span, strike{
     box-shadow: 0 3px 8px rgba(0,0,0,0.25);
     padding: 40px;
 }
+
+#submit{
+    background-color: #36d9b6;
+    border-radius: 0;
+    border: 0;
+    color: #fff;
+}
