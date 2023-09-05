@@ -8,7 +8,7 @@ class App extends React.Component {
       <div className='container'>
 
         <div id='task-container'>
-          <div id='form-wrapper                                                                                                                                                                                                                                                                                                                  '>
+          <div id='form-wrapper'>
             <form id="form">
               <div className='flex-wrapper'>
                 <div style={{flex: 6}}>
