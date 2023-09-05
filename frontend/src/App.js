@@ -35,6 +35,7 @@ class App extends React.Component {
   }
 
   render(){
+    var tasks = this.state.todoList
     return(
       <div className='container'>
 
@@ -54,7 +55,21 @@ class App extends React.Component {
           </div>
 
           <div id='list-wrapper'>
-
+            {tasks.map(function(task, index){
+              return(
+                <div key={index} className='task-wrapper flex-wrapper'>
+                  <div style={{flex: 7}}>
+                    <span>{task.title}</span>
+                  </div>
+                  <div style={{flex: 1}}>
+                    <button className='btn btn-sm btn-outline-info'>Edit</button>
+                  </div>
+                  <div style={{flex: 1}}>
+                    <button className='btn btn-sm btn-outline-dark delete'>-</button>
+                  </div>
+                </div>
+              )
+            })}
           </div>
         </div>
       
