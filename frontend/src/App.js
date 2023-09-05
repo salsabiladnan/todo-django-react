@@ -2,8 +2,39 @@ import React from 'react';
 import './App.css';
 
 class App extends React.Component {
+  constructor(props){
+    super(props);
+      this.state = {
+        todoList:[],
+        activeItem:{
+          id:null,
+          title:'',
+          completed:false,
+        },
+        editing:false,
+      }
+      this.fetchTasks = this.fetchTasks.bind(this)
+  };
+
+  componentWillMount(){
+    this.fetchTasks()
+  }
+
+  // in charge of making an API call and rendering out the data
+  fetchTasks(){
+    console.log('Fethcing...')
+
+    fetch('http://127.0.0.1:8000/api/task-list/')
+    .then(response => response.json())
+    .then(data =>
+      // console.log('Data:', data)
+      this.setState({
+        todoList:data
+      })
+      )
+  }
+
   render(){
-    
     return(
       <div className='container'>
 
